@@ -3,14 +3,14 @@ package com.hunger.sample.springmq.activemq.consumer;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.activemq.command.ActiveMQQueue;
+import org.apache.activemq.command.ActiveMQTopic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.hunger.sample.springmq.common.MqQueueName;
 
-public class TopicMessageActiveMQQueue extends ActiveMQQueue {
-	private static final Logger logger = LoggerFactory.getLogger(TopicMessageActiveMQQueue.class);
+public class TopicMessageActiveMQTopic extends ActiveMQTopic {
+	private static final Logger logger = LoggerFactory.getLogger(TopicMessageActiveMQTopic.class);
 	
 	static String listenTopicName = null;
 	static{
@@ -30,7 +30,7 @@ public class TopicMessageActiveMQQueue extends ActiveMQQueue {
 		listenTopicName =sb.toString();
 	}
 	
-	public TopicMessageActiveMQQueue(){
+	public TopicMessageActiveMQTopic(){
 		super(listenTopicName);
 	}
 }

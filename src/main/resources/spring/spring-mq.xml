@@ -83,7 +83,7 @@
 		<property name="pubSubDomain" value="true"></property>
 	</bean>
 	<bean id="listenTopicMessage"
-		class="com.hunger.sample.springmq.activemq.consumer.TopicMessageActiveMQQueue"></bean>
+		class="com.hunger.sample.springmq.activemq.consumer.TopicMessageActiveMQTopic"></bean>
 	<bean id="topicMessageListener"
 		class="com.hunger.sample.springmq.activemq.consumer.TopicMessageListener"></bean>
 </beans>
