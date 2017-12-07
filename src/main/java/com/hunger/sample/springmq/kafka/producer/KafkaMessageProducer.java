@@ -7,12 +7,13 @@ import com.hunger.sample.springmq.common.MqMessage;
 
 public class KafkaMessageProducer implements IMqMessageProducer {
 
+	@SuppressWarnings("rawtypes")
 	private KafkaTemplate kafkaTemplate;
 	
 	@Override
 	public void sendQueueMessage(MqMessage mqMessage) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override

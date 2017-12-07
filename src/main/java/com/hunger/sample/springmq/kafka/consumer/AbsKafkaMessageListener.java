@@ -17,7 +17,7 @@ public abstract class AbsKafkaMessageListener implements MessageListener<String,
 	public void onMessage(ConsumerRecord<String, byte[]> record) {
 		// TODO Auto-generated method stub
 		MqMessage mqMessage = (MqMessage) JdkSerializeUtil.deserialize(record.value());
-		this.onMessage(record);
+		this.onMessage(mqMessage);
 	}
 
 	public abstract void onMessage(MqMessage mqMessage);

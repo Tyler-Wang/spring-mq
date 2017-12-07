@@ -38,11 +38,95 @@
 			</bean>
 		</constructor-arg>
 	</bean>
-	
+
 	<!-- Kafka消息生产者 -->
-	<bean id="kafkaMessageProducer" class="com.hunger.sample.springmq.kafka.producer.KafkaMessageProducer">
-		<property name="kafkaTemplate" ref="busKafkaTemplate"/>
+	<bean id="kafkaMessageProducer"
+		class="com.hunger.sample.springmq.kafka.producer.KafkaMessageProducer">
+		<property name="kafkaTemplate" ref="busKafkaTemplate" />
+	</bean>
+
+	<!-- 队列消息ConsumerFactory -->
+	<bean id="queueMessageConsumerFactory"
+		class="org.springframework.kafka.core.DefaultKafkaConsumerFactory">
+		<constructor-arg>
+			<map>
+				<entry key="bootstrap.servers" value="${bootstrap.servers}" />
+				<entry key="group.id" value="${queue.group.id}" />
+				<entry key="key.deserializer"
+					value="org.apache.kafka.common.serialization.StringDeserializer" />
+				<entry key="value.deserializer"
+					value="org.apache.kafka.common.serialization.ByteArrayDeserializer" />
+				<entry key="enable.auto.commit" value="false" />
+				<entry key="request.timeout.ms" value="40000"></entry>
+				<entry key="session.timeout.ms" value="30000"></entry>
+				<entry key="heartbeat.interval.ms" value="10000"></entry>
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<!-- 监听的队列 -->
+	<bean id="queueMessageTopics"
+		class="com.hunger.sample.springmq.kafka.consumer.QueueMessageKafkaListenerTopic"></bean>
+
+	<!-- Queue消息listener -->
+	<bean id="queueMessageListener"
+		class="com.hunger.sample.springmq.kafka.consumer.QueueMessageKafkaListener"></bean>
+
+	<!-- Queue消息容器配置 -->
+	<bean id="queueMessageContainerProperties" class="com.hunger.sample.springmq.kafka.consumer.KafkaContainerProperties">
+		<constructor-arg index="0" ref="queueMessageTopics">
+		</constructor-arg>
+		<property name="messageListener" ref="queueMessageListener"></property>
+	</bean>
+
+	<!-- Queue消息listener容器 -->
+	<bean id="queueKafkaListenerContainer"
+		class="org.springframework.kafka.listener.ConcurrentMessageListenerContainer">
+		<constructor-arg index="0" ref="queueMessageConsumerFactory" />
+		<constructor-arg index="1" ref="queueMessageContainerProperties" />
+		<property name="concurrency" value="10"></property>
 	</bean>
 	
 	
+	<!-- 主题消息ConsumerFactory -->
+	<bean id="topicMessageConsumerFactory"
+		class="org.springframework.kafka.core.DefaultKafkaConsumerFactory">
+		<constructor-arg>
+			<map>
+				<entry key="bootstrap.servers" value="${bootstrap.servers}" />
+				<entry key="group.id" value="${topic.group.id}" />
+				<entry key="key.deserializer"
+					value="org.apache.kafka.common.serialization.StringDeserializer" />
+				<entry key="value.deserializer"
+					value="org.apache.kafka.common.serialization.ByteArrayDeserializer" />
+				<entry key="enable.auto.commit" value="false" />
+				<entry key="request.timeout.ms" value="40000"></entry>
+				<entry key="session.timeout.ms" value="30000"></entry>
+				<entry key="heartbeat.interval.ms" value="10000"></entry>
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<!-- 监听的topic消息 -->
+	<bean id="topicMessageTopics"
+		class="com.hunger.sample.springmq.kafka.consumer.TopicMessageKafkaListenerTopic"></bean>
+
+	<!-- topic消息listener -->
+	<bean id="topicMessageListener"
+		class="com.hunger.sample.springmq.kafka.consumer.TopicMessageKafkaListener"></bean>
+
+	<!-- topic消息容器配置 -->
+	<bean id="topicMessageContainerProperties" class="com.hunger.sample.springmq.kafka.consumer.KafkaContainerProperties">
+		<constructor-arg index="0" ref="topicMessageTopics">
+		</constructor-arg>
+		<property name="messageListener" ref="topicMessageListener"></property>
+	</bean>
+
+	<!-- topic消息listener容器 -->
+	<bean id="topicKafkaListenerContainer"
+		class="org.springframework.kafka.listener.ConcurrentMessageListenerContainer">
+		<constructor-arg index="0" ref="topicMessageConsumerFactory" />
+		<constructor-arg index="1" ref="topicMessageContainerProperties" />
+		<property name="concurrency" value="50"></property>
+	</bean>
 </beans>
