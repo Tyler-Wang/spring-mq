@@ -44,7 +44,7 @@ public class AqMessageProducer implements IMqMessageProducer {
 		logger.debug("向队列 {}, 发送消息 {} 完成", mqMessage.getQueue().getQueueName(), JSONObject.toJSONString(mqMessage));
 	}
 
-	public void sendTopicQueueMessage(final MqMessage mqMessage) {
+	public void sendTopicMessage(final MqMessage mqMessage) {
 		logger.debug("准备向Topic {}, 发送消息 {}", mqMessage.getQueue().getQueueName(), JSONObject.toJSONString(mqMessage));
 		this.jmsTopicTemplate.send(mqMessage.getQueue().getQueueName(), new MessageCreator() {
 			

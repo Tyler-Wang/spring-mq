@@ -17,5 +17,5 @@ public interface IMqMessageProducer {
 	 * 发送主题Topic消息
 	 * @param mqMessage
 	 */
-	void sendTopicQueueMessage(MqMessage mqMessage);
+	void sendTopicMessage(MqMessage mqMessage);
 }
