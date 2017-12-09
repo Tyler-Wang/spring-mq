@@ -7,21 +7,7 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd 
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
-
-	<!-- 加载配置文件 -->
-	<bean id="configProperties"
-		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-		<property name="locations">
-			<list>
-				<value>classpath:conf/kafka.properties</value>
-			</list>
-		</property>
-	</bean>
-	<bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
-		<property name="properties" ref="configProperties" />
-	</bean>
-
+ 	
 	<!-- kafka消息发送模板对象 -->
 	<bean id="busKafkaTemplate" class="org.springframework.kafka.core.KafkaTemplate">
 		<constructor-arg>
@@ -46,7 +32,7 @@
 	</bean>
 
 	<!-- 队列消息ConsumerFactory -->
-	<bean id="queueMessageConsumerFactory"
+	<bean id="kafkaQueueMessageConsumerFactory"
 		class="org.springframework.kafka.core.DefaultKafkaConsumerFactory">
 		<constructor-arg>
 			<map>
@@ -65,31 +51,34 @@
 	</bean>
 
 	<!-- 监听的队列 -->
-	<bean id="queueMessageTopics"
+	<bean id="kafkaQueueMessageTopics"
 		class="com.hunger.sample.springmq.kafka.consumer.QueueMessageKafkaListenerTopic"></bean>
 
 	<!-- Queue消息listener -->
-	<bean id="queueMessageListener"
+	<bean id="kafkaQueueMessageListener"
 		class="com.hunger.sample.springmq.kafka.consumer.QueueMessageKafkaListener"></bean>
 
 	<!-- Queue消息容器配置 -->
-	<bean id="queueMessageContainerProperties" class="com.hunger.sample.springmq.kafka.consumer.KafkaContainerProperties">
-		<constructor-arg index="0" ref="queueMessageTopics">
+	<bean id="kafkaQueueMessageContainerProperties"
+		class="com.hunger.sample.springmq.kafka.consumer.KafkaContainerProperties">
+		<constructor-arg index="0" ref="kafkaQueueMessageTopics">
 		</constructor-arg>
-		<property name="messageListener" ref="queueMessageListener"></property>
+		<property name="messageListener" ref="kafkaQueueMessageListener"></property>
 	</bean>
 
 	<!-- Queue消息listener容器 -->
-	<bean id="queueKafkaListenerContainer"
+	<bean id="kafkaQueueKafkaListenerContainer"
 		class="org.springframework.kafka.listener.ConcurrentMessageListenerContainer">
-		<constructor-arg index="0" ref="queueMessageConsumerFactory" />
-		<constructor-arg index="1" ref="queueMessageContainerProperties" />
-		<property name="concurrency" value="10"></property>
+		<constructor-arg index="0"
+			ref="kafkaQueueMessageConsumerFactory" />
+		<constructor-arg index="1"
+			ref="kafkaQueueMessageContainerProperties" />
+		<property name="concurrency" value="1"></property>
 	</bean>
-	
-	
+
+
 	<!-- 主题消息ConsumerFactory -->
-	<bean id="topicMessageConsumerFactory"
+	<bean id="kafkaTopicMessageConsumerFactory"
 		class="org.springframework.kafka.core.DefaultKafkaConsumerFactory">
 		<constructor-arg>
 			<map>
@@ -108,25 +97,28 @@
 	</bean>
 
 	<!-- 监听的topic消息 -->
-	<bean id="topicMessageTopics"
+	<bean id="kafkaTopicMessageTopics"
 		class="com.hunger.sample.springmq.kafka.consumer.TopicMessageKafkaListenerTopic"></bean>
 
 	<!-- topic消息listener -->
-	<bean id="topicMessageListener"
+	<bean id="kafkaTopicMessageListener"
 		class="com.hunger.sample.springmq.kafka.consumer.TopicMessageKafkaListener"></bean>
 
 	<!-- topic消息容器配置 -->
-	<bean id="topicMessageContainerProperties" class="com.hunger.sample.springmq.kafka.consumer.KafkaContainerProperties">
-		<constructor-arg index="0" ref="topicMessageTopics">
+	<bean id="kafkaTopicMessageContainerProperties"
+		class="com.hunger.sample.springmq.kafka.consumer.KafkaContainerProperties">
+		<constructor-arg index="0" ref="kafkaTopicMessageTopics">
 		</constructor-arg>
-		<property name="messageListener" ref="topicMessageListener"></property>
+		<property name="messageListener" ref="kafkaTopicMessageListener"></property>
 	</bean>
 
 	<!-- topic消息listener容器 -->
-	<bean id="topicKafkaListenerContainer"
+	<bean id="kafkaTopicKafkaListenerContainer"
 		class="org.springframework.kafka.listener.ConcurrentMessageListenerContainer">
-		<constructor-arg index="0" ref="topicMessageConsumerFactory" />
-		<constructor-arg index="1" ref="topicMessageContainerProperties" />
-		<property name="concurrency" value="50"></property>
+		<constructor-arg index="0"
+			ref="kafkaTopicMessageConsumerFactory" />
+		<constructor-arg index="1"
+			ref="kafkaTopicMessageContainerProperties" />
+		<property name="concurrency" value="1"></property>
 	</bean>
 </beans>

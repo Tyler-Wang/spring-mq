@@ -13,19 +13,6 @@
                         http://www.springframework.org/schema/context/spring-context-4.0.xsd
                         http://activemq.apache.org/schema/core 
                         http://activemq.apache.org/schema/core/activemq-core.xsd">
-
-	<bean id="configProperties"
-		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-		<property name="locations">
-			<list>
-				<value>classpath:conf/config.properties</value>
-			</list>
-		</property>
-	</bean>
-	<bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
-		<property name="properties" ref="configProperties" />
-	</bean>
 	
 	<!-- 指定MQ连接 -->
 	<bean id="connectionFactory" class="org.apache.activemq.spring.ActiveMQConnectionFactory">
