@@ -11,7 +11,7 @@ public class QueueMessageKafkaListener extends AbsKafkaMessageListener {
 	private static final Logger logger = LoggerFactory.getLogger(QueueMessageKafkaListener.class);
 	@Override
 	public void onMessage(MqMessage mqMessage) {
-		logger.info("kafka监听到的信息,队列：{},内容：{}",mqMessage.getQueue().getQueueName(),JSON.toJSONString(mqMessage));
+		logger.info("kafka监听到的信息, 队列：{},内容：{}",mqMessage.getQueue().getQueueName(),JSON.toJSONString(mqMessage));
 		//具体处理业务
 	}
 
