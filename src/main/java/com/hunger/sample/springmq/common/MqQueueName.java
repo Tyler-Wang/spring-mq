@@ -22,7 +22,17 @@ public enum MqQueueName {
 			return "mq.res.test";
 		}
 		
-	};
+	},
+	MQTT_REQ_TEST{
+
+		@Override
+		public String getQueueName() {
+			// TODO Auto-generated method stub
+			return "mqtt.req.test";
+		}
+		
+	}
+	;
 	
 	public abstract String getQueueName();
 }
