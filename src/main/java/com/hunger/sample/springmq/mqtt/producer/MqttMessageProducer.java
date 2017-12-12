@@ -7,6 +7,7 @@ import org.springframework.integration.mqtt.support.MqttHeaders;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.hunger.sample.springmq.common.IMqMessageProducer;
 import com.hunger.sample.springmq.common.MqMessage;
@@ -25,12 +26,13 @@ public class MqttMessageProducer implements IMqMessageProducer {
 
 	@Override
 	public void sendTopicMessage(MqMessage mqMessage) {
-		logger.info("准备向Topic {}, 发送消息 {}", mqMessage.getQueue().getQueueName(), JSONObject.toJSONString(mqMessage));
+		logger.debug("准备向Topic {}, 发送消息 {}", mqMessage.getQueue().getQueueName(), JSONObject.toJSONString(mqMessage));
 		this.send(mqMessage);
-		logger.info("向Topic {}, 发送消息 {} 完成", mqMessage.getQueue().getQueueName(), JSONObject.toJSONString(mqMessage));
+		logger.debug("向Topic {}, 发送消息 {} 完成", mqMessage.getQueue().getQueueName(), JSONObject.toJSONString(mqMessage));
 	}
 
 	private void send(MqMessage mqMessage){
+		//发送byte[]格式消息
 		Message<byte[]> message = MessageBuilder.withPayload(JdkSerializeUtil.serialize(mqMessage)).setHeader(MqttHeaders.TOPIC, mqMessage.getQueue().getQueueName()).build();
 		mqttPahoMessageHandler.handleMessage(message);
 	}
