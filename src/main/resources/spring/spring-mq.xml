@@ -68,6 +68,10 @@
 		<property name="destination" ref="listenTopicMessage" />
 		<property name="messageListener" ref="topicMessageListener" />
 		<property name="pubSubDomain" value="true"></property>
+		<!-- 持久订阅，必须配置以下3个属性 -->
+		<property name="subscriptionDurable" value="true"></property>
+		<property name="clientId" value="${mq.topic.client}"></property>
+		<property name="durableSubscriptionName" value="${mq.topic.client}"></property>
 	</bean>
 	<bean id="listenTopicMessage"
 		class="com.hunger.sample.springmq.activemq.consumer.TopicMessageActiveMQTopic"></bean>

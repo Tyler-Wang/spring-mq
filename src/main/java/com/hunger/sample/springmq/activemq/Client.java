@@ -19,7 +19,8 @@ public class Client {
 		while(true){
 			TestMqRequest req = new TestMqRequest();
 			req.setMsgId(""+System.currentTimeMillis());
-			mp.sendQueueMessage(req);
+			//mp.sendQueueMessage(req);
+			mp.sendTopicMessage(req);
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {

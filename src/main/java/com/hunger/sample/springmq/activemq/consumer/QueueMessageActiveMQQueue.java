@@ -16,7 +16,7 @@ public class QueueMessageActiveMQQueue extends ActiveMQQueue {
 		//添加要监听的队列
 		List<MqQueueName> listenerList = new ArrayList<MqQueueName>();
 		listenerList.add(MqQueueName.REQ_TEST);
-		
+		//listenerList.add(MqQueueName.RES_TEST);
 		StringBuilder sb = new StringBuilder();
 		for(int i=0;i<listenerList.size();i++){
 			if(i>0){
