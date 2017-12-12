@@ -14,18 +14,18 @@ public class Client {
 		String path = url.getPath();
 		PropertyConfigurator.configureAndWatch(path);
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:spring/spring-bean.xml", "classpath:spring/spring-mqtt.xml");
-//		MqttMessageProducer mp = ctx.getBean(MqttMessageProducer.class);
-//		while(true){
-//			MqttMqRequest req = new MqttMqRequest();
-//			req.setMsgId(""+System.currentTimeMillis());
-//			mp.sendTopicMessage(req);
-//			try {
-//				Thread.sleep(1000);
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
+		MqttMessageProducer mp = ctx.getBean(MqttMessageProducer.class);
+		while(true){
+			MqttMqRequest req = new MqttMqRequest();
+			req.setMsgId(""+System.currentTimeMillis());
+			mp.sendTopicMessage(req);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 	}
 }

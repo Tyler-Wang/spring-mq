@@ -16,6 +16,9 @@
 				<value>${mqtt.server.url}</value>
 			</array>
 		</property>
+		
+		<!-- spring-integration4.2.3版本后，此属性配置为false，可实现持久订阅 -->
+		<property name="cleanSession" value="false"></property>
 	</bean>
 	
 	<bean id="mqttMessageProducerHandler" class="org.springframework.integration.mqtt.outbound.MqttPahoMessageHandler">
