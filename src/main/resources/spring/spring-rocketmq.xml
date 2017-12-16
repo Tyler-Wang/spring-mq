@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+	
+	<bean id="defaultMQProducer" class="org.apache.rocketmq.client.producer.DefaultMQProducer" destroy-method="shutdown" >
+		<property name="producerGroup" value="${rocketmq.producer.group}"></property>
+		<property name="namesrvAddr" value="${rocketmq.nameserver.addr}"></property>
+	</bean>
+	
+	<bean id="rocketMQMessageProducer" class="com.hunger.sample.springmq.rocketmq.producer.RocketMQMessageProducer">
+		<property name="defaultMQProducer" ref="defaultMQProducer"></property>
+	</bean>
+	
+	<bean id="messageListener" class="com.hunger.sample.springmq.rocketmq.consumer.RocketMQConcurrentMessageListener">
+	</bean>
+	
+	<bean id="defaultMQPushConsumer" class="org.apache.rocketmq.client.consumer.DefaultMQPushConsumer">
+		<property name="consumerGroup" value="${rocketmq.consumer.group}"></property>
+		<property name="namesrvAddr" value="${rocketmq.nameserver.addr}"></property>
+		<property name="messageListener" ref="messageListener"></property>
+	</bean>
+	
+	<bean id="listenerTopic" class="com.hunger.sample.springmq.rocketmq.consumer.TopicMessageRocketMQListenerTopic">
+	</bean>
+	
+	<bean id="rocketMQPushConsumer" class="com.hunger.sample.springmq.rocketmq.consumer.RocketMQPushConsumer">
+		<property name="defaultMQPushConsumer" ref="defaultMQPushConsumer"></property>
+		<property name="listenerTopic" ref="listenerTopic"></property>
+	</bean>
+</beans>

@@ -19,6 +19,7 @@
 		<fastjson.version>1.1.42</fastjson.version>
 		<activemq.version>5.11.1</activemq.version>
 		<spring-kafka.version>1.0.2.RELEASE</spring-kafka.version>
+		<rocketmq.version>4.1.0-incubating</rocketmq.version>
 	</properties>
 
 	<dependencies>
@@ -132,6 +133,12 @@
 			<groupId>org.springframework.integration</groupId>
 			<artifactId>spring-integration-mqtt</artifactId>
 			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.rocketmq</groupId>
+			<artifactId>rocketmq-client</artifactId>
+			<version>${rocketmq.version}</version>
 		</dependency>
 		<!-- <dependency> <groupId>org.fusesource.mqtt-client</groupId> <artifactId>mqtt-client</artifactId> 
 			<version>1.14</version> </dependency> -->

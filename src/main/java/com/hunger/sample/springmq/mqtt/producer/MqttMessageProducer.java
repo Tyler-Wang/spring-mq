@@ -7,7 +7,6 @@ import org.springframework.integration.mqtt.support.MqttHeaders;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.hunger.sample.springmq.common.IMqMessageProducer;
 import com.hunger.sample.springmq.common.MqMessage;

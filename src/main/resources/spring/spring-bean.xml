@@ -25,5 +25,5 @@
 	</bean>
 	 -->
 	 
-	<context:property-placeholder location="conf/activemq.properties,conf/kafka.properties,conf/mqtt.properties"/>
+	<context:property-placeholder location="conf/activemq.properties,conf/kafka.properties,conf/mqtt.properties,conf/rocketmq.properties"/>
 </beans>
