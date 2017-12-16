@@ -1,4 +1,4 @@
-package com.hunger.sample.springmq.kafka.consumer;
+package com.hunger.sample.springmq.common;
 
 import java.util.List;
 

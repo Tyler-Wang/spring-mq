@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.integration.mqtt.core.MqttPahoClientFactory;
 
 import com.alibaba.fastjson.JSON;
+import com.hunger.sample.springmq.common.AbsMultiListenTopic;
 import com.hunger.sample.springmq.common.MqMessage;
-import com.hunger.sample.springmq.kafka.consumer.AbsMultiListenTopic;
 
 public class TopicMessageMqttListener extends AbsMqttMessageListener {
 

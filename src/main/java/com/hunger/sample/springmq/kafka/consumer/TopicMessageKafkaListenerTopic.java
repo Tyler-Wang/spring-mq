@@ -3,6 +3,7 @@ package com.hunger.sample.springmq.kafka.consumer;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hunger.sample.springmq.common.AbsMultiListenTopic;
 import com.hunger.sample.springmq.common.MqQueueName;
 
 public class TopicMessageKafkaListenerTopic implements AbsMultiListenTopic {
