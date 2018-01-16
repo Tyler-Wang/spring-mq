@@ -6,6 +6,7 @@ import org.springframework.util.concurrent.ListenableFuture;
 
 import com.hunger.sample.springmq.common.IMqMessageProducer;
 import com.hunger.sample.springmq.common.MqMessage;
+import com.hunger.sample.springmq.utils.FastjsonSerializeUtil;
 import com.hunger.sample.springmq.utils.JdkSerializeUtil;
 
 public class KafkaMessageProducer implements IMqMessageProducer {
@@ -28,7 +29,8 @@ public class KafkaMessageProducer implements IMqMessageProducer {
 	@SuppressWarnings("unchecked")
 	private ListenableFuture<SendResult<String, String>> send(MqMessage mqMessage){
 		String topic = mqMessage.getQueue().getQueueName();
-		byte[] data = JdkSerializeUtil.serialize(mqMessage);
+//		byte[] data = JdkSerializeUtil.serialize(mqMessage);
+		byte[] data = FastjsonSerializeUtil.serialize(mqMessage);
 		return kafkaTemplate.send(topic, data);
 	}
 	

@@ -59,6 +59,7 @@ public class AqMessageProducer implements IMqMessageProducer {
 
 	public JmsTemplate getJmsQueueTemplate() {
 		return jmsQueueTemplate;
+
 	}
 
 	public void setJmsQueueTemplate(JmsTemplate jmsQueueTemplate) {
